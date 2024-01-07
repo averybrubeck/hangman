@@ -6,23 +6,22 @@ class Hangman
     @guess = nil
     puts "Welcome to Hangman! You have #{@lives} lives to guess the secret word."
     generate_board
+    puts @secret
     user_guess
   end
 
   def choose_secret
-    secret = ' '
+    secret = ''
     while secret.length >= 12 || secret.length <= 5
       File.foreach('word_bank.txt').each_with_index do |line, number|
-        secret = line if rand < 1.0 / (number + 1)
+        secret = line.strip if rand < 1.0 / (number + 1)
       end
     end
     secret
   end
 
   def generate_board
-    @secret.each_char do
-      print ' _ '
-    end
+    @secret.each_char { print '_ ' }
   end
 
   def user_guess
@@ -32,6 +31,16 @@ class Hangman
       puts 'Invalid Guess, Try Again'
       @guess = gets.chomp.to_s.downcase
     end
+    if @secret.include? @guess
+      puts 'Your Guess Is Correct'
+    else
+      puts 'Your Guess Is Incorrect Try again'
+      @turns -= 1
+    end
+  end
+
+  def update_board
+
   end
 end
 
