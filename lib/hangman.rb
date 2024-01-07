@@ -2,7 +2,7 @@ require 'ruby2d'
 
 class Hangman
   def initialize
-    Window.set(title: 'Hangman', width: 840, height: 480)
+    Window.set(title: 'Hangman', width: 840, height: 480, background: 'white')
     Image.new('background.png')
     create_man
     Window.show
