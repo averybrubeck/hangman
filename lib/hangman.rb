@@ -3,7 +3,7 @@ class Hangman
   def initialize
     @secret = choose_secret.downcase
     @lives = 9
-    @guess = nil
+    @guess = []
     puts "Welcome to Hangman! You have #{@lives} lives to guess the secret word."
     generate_board
     puts @secret
