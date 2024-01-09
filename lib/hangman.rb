@@ -33,12 +33,12 @@ class Hangman
     end
     if @secret.include? @guess
       puts 'Your Guess Is Correct'
-      update_board
     else
       puts 'Your Guess Is Incorrect Try again'
       @turns -= 1
       hang_the_man
     end
+    update_board
   end
 
   def update_board
@@ -52,23 +52,23 @@ class Hangman
   def hang_the_man
     case @turns
     when 8
-      print 'The head has been hung'
+      puts 'The head has been hung'
     when 7
-      print 'The body has been hung'
+      puts 'The body has been hung'
     when 6
-      print 'The left leg has been hung'
+      puts 'The left leg has been hung'
     when 5
-      print 'The right leg has been hung'
+      puts 'The right leg has been hung'
     when 4
-      print 'The leg arm has been hung'
+      puts 'The leg arm has been hung'
     when 3
-      print 'The right arm has been hung'
+      puts 'The right arm has been hung'
     when 2
-      print 'The face has been drawn'
+      puts 'The face has been drawn'
     when 1
-      print 'The man is almost dead, better hurry!'
+      puts 'The man is almost dead, better hurry!'
     when @turns.zero?
-      print 'The man is dead'
+      puts 'The man is dead'
     end
   end
 end
