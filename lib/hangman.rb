@@ -74,14 +74,26 @@ class Hangman
     end
   end
 
-  def end_game
-    return true
+  def game_over?
+    @turns.zero? || !@secret.include?('_ ')
   end
 
   def check_for_win
-    puts 'You saved the man! Congrats' unless @secret.include?('_ ')
+    updated_board = ''
+    @secret.each_char do |c|
+      updated_board += @guess.include?(c) ? c + ' ' : '_ '
+    end
+    puts 'You saved the man! Congrats' unless updated_board.include?('_')
+  end
+
+  def play_game
+    loop do
+      user_guess
+      update_board
+      break if game_over?
+    end
   end
 end
 
 game = Hangman.new
-game
+game.play_game
