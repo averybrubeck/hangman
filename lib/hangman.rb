@@ -33,6 +33,7 @@ class Hangman
     end
     if @secret.include? @guess
       puts 'Your Guess Is Correct'
+      check_for_win
     else
       puts 'Your Guess Is Incorrect Try again'
       @turns -= 1
@@ -69,7 +70,16 @@ class Hangman
       puts 'The man is almost dead, better hurry!'
     when @turns.zero?
       puts 'The man is dead'
+      end_game
     end
+  end
+
+  def end_game
+    return true
+  end
+
+  def check_for_win
+    puts 'You saved the man! Congrats' unless @secret.include?('_ ')
   end
 end
 
