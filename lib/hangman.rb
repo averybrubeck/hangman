@@ -5,9 +5,7 @@ class Hangman
     @turns = 9
     @guess = []
     puts "Welcome to Hangman! You have #{@lives} lives to guess the secret word."
-    generate_board
     puts @secret
-    user_guess
   end
 
   def choose_secret
@@ -90,7 +88,7 @@ class Hangman
     loop do
       user_guess
       update_board
-      break if game_over?
+      break if @turns.zero?
     end
   end
 end
