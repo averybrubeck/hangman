@@ -4,6 +4,7 @@ class Hangman
     @secret = choose_secret.downcase
     @turns = 9
     @guess = []
+    @guessed_chars = []
     puts "Welcome to Hangman! You have #{@lives} lives to guess the secret word."
     puts @secret
   end
@@ -29,6 +30,9 @@ class Hangman
       puts 'Invalid Guess, Try Again'
       @guess = gets.chomp.to_s.downcase
     end
+    @guessed_characters ||= []
+    @guessed_characters << @guess
+
     if @secret.include? @guess
       puts 'Your Guess Is Correct'
       check_for_win
@@ -43,7 +47,7 @@ class Hangman
   def update_board
     updated_board = ''
     @secret.each_char do |c|
-      updated_board += @guess.include?(c) ? c + ' ' : '_ '
+      updated_board += @guessed_characters.include?(c) ? c + ' ' : '_ '
     end
     puts updated_board.strip
   end
@@ -66,9 +70,8 @@ class Hangman
       puts 'The face has been drawn'
     when 1
       puts 'The man is almost dead, better hurry!'
-    when @turns.zero?
+    when 0
       puts 'The man is dead'
-      end_game
     end
   end
 
