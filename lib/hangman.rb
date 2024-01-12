@@ -5,6 +5,7 @@ class Hangman
     @turns = 9
     @guess = []
     @guessed_chars = []
+    @updated_board = ''
     puts "Welcome to Hangman! You have #{@lives} lives to guess the secret word."
     puts @secret
   end
@@ -41,15 +42,14 @@ class Hangman
       @turns -= 1
       hang_the_man
     end
-    update_board
   end
 
   def update_board
-    updated_board = ''
+    @updated_board = ''
     @secret.each_char do |c|
-      updated_board += @guessed_chars.include?(c) ? c + ' ' : '_ '
+      @updated_board += @guessed_chars.include?(c) ? c + ' ' : '_ '
     end
-    puts updated_board.strip
+    puts @updated_board.strip
   end
 
   def hang_the_man
@@ -75,14 +75,14 @@ class Hangman
     end
   end
 
-
   def play_game
     loop do
       user_guess
       update_board
-      break if @turns.zero?
+      break if @turns.zero? || !@updated_board.include?('_')
     end
   end
+
 end
 
 game = Hangman.new
