@@ -1,3 +1,5 @@
+require 'yaml'
+
 # Hangman Game
 class Hangman
   def initialize
@@ -8,6 +10,15 @@ class Hangman
     @updated_board = ''
     puts "Welcome to Hangman! You have #{@lives} lives to guess the secret word."
     puts @secret
+  end
+
+  def to_yaml
+    YAML.dump({
+        secret: @secret,
+        turns: @turns,
+        guessed_chars: @guessed_chars,
+        board: @updated_board
+    })
   end
 
   def choose_secret
@@ -36,7 +47,6 @@ class Hangman
 
     if @secret.include? @guess
       puts 'Your Guess Is Correct'
-
     else
       puts 'Your Guess Is Incorrect Try again'
       @turns -= 1
@@ -49,7 +59,7 @@ class Hangman
     @secret.each_char do |c|
       @updated_board += @guessed_chars.include?(c) ? c + ' ' : '_ '
     end
-    puts @updated_board.strip
+    puts "Your guess is #{@updated_board.strip}"
   end
 
   def hang_the_man
@@ -76,14 +86,20 @@ class Hangman
   end
 
   def play_game
-    loop do
+    # loop do
       user_guess
       update_board
-      break if @turns.zero? || !@updated_board.include?('_')
-    end
+      if !@updated_board.include?('_')
+        puts 'You saved the man! Congrats!'
+        #break
+      elsif @turns.zero?
+        puts 'You lose!'
+        #break
+      end
+    # end
   end
-
 end
 
 game = Hangman.new
 game.play_game
+game game.to_yaml
