@@ -35,7 +35,7 @@ class Hangman
 
     if @secret.include? @guess
       puts 'Your Guess Is Correct'
-      check_for_win
+
     else
       puts 'Your Guess Is Incorrect Try again'
       @turns -= 1
@@ -76,19 +76,10 @@ class Hangman
   end
 
 
-  def check_for_win
-    updated_board = ''
-    @secret.each_char do |c|
-      updated_board += @guess.include?(c) ? c + ' ' : '_ '
-    end
-    puts 'You saved the man! Congrats' unless updated_board.include?('_')
-  end
-
   def play_game
     loop do
       user_guess
       update_board
-      check_for_win
       break if @turns.zero?
     end
   end
