@@ -1,6 +1,14 @@
 ---
-:secret: prospects
+:secret: punishment
 :turns: 9
 :guessed_chars:
 - p
-:board: 'p _ _ _ p _ _ _ _ '
+- u
+- "n"
+- i
+- s
+- h
+- m
+- e
+- t
+:board: 'p u n i s h m e n t '

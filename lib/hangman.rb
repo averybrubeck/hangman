@@ -20,7 +20,12 @@ class Hangman
         board: @updated_board
     })
 
-  File.write(path, yaml_content)
+    File.write(path, yaml_content)
+  end
+
+  def load_game(path)
+    data = File.read(path)
+    YAML.load(data)
   end
 
   def choose_secret
@@ -88,20 +93,21 @@ class Hangman
   end
 
   def play_game
-    # loop do
+      loop do
       user_guess
       update_board
+      to_yaml('output.yaml')
+      load_game('output.yaml')
       if !@updated_board.include?('_')
         puts 'You saved the man! Congrats!'
-        #break
+        break
       elsif @turns.zero?
         puts 'You lose!'
-        #break
+        break
       end
-    # end
+     end
   end
 end
 
 game = Hangman.new
 game.play_game
-game.to_yaml('Output.yaml')
