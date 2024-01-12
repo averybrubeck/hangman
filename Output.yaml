@@ -1,0 +1,6 @@
+---
+:secret: prospects
+:turns: 9
+:guessed_chars:
+- p
+:board: 'p _ _ _ p _ _ _ _ '

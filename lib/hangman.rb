@@ -12,13 +12,15 @@ class Hangman
     puts @secret
   end
 
-  def to_yaml
-    YAML.dump({
+  def to_yaml(path)
+    yaml_content = YAML.dump({
         secret: @secret,
         turns: @turns,
         guessed_chars: @guessed_chars,
         board: @updated_board
     })
+
+  File.write(path, yaml_content)
   end
 
   def choose_secret
@@ -102,4 +104,4 @@ end
 
 game = Hangman.new
 game.play_game
-game game.to_yaml
+game.to_yaml('Output.yaml')
