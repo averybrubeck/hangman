@@ -30,8 +30,8 @@ class Hangman
       puts 'Invalid Guess, Try Again'
       @guess = gets.chomp.to_s.downcase
     end
-    @guessed_characters ||= []
-    @guessed_characters << @guess
+
+    @guessed_chars << @guess
 
     if @secret.include? @guess
       puts 'Your Guess Is Correct'
@@ -47,7 +47,7 @@ class Hangman
   def update_board
     updated_board = ''
     @secret.each_char do |c|
-      updated_board += @guessed_characters.include?(c) ? c + ' ' : '_ '
+      updated_board += @guessed_chars.include?(c) ? c + ' ' : '_ '
     end
     puts updated_board.strip
   end
@@ -75,9 +75,6 @@ class Hangman
     end
   end
 
-  def game_over?
-    @turns.zero? || !@secret.include?('_ ')
-  end
 
   def check_for_win
     updated_board = ''
@@ -91,6 +88,7 @@ class Hangman
     loop do
       user_guess
       update_board
+      check_for_win
       break if @turns.zero?
     end
   end
