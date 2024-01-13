@@ -1,14 +1,6 @@
 ---
-:secret: punishment
+:secret: choosing
 :turns: 9
 :guessed_chars:
-- p
-- u
-- "n"
-- i
-- s
-- h
-- m
-- e
-- t
-:board: 'p u n i s h m e n t '
+- c
+:board: 'c _ _ _ _ _ _ _ '

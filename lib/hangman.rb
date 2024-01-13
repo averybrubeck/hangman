@@ -8,19 +8,24 @@ class Hangman
     @guess = []
     @guessed_chars = []
     @updated_board = ''
-    puts "Welcome to Hangman! You have #{@lives} lives to guess the secret word."
+    puts "Welcome to Hangman! You have #{@turns} lives to guess the secret word."
     puts @secret
   end
 
-  def to_yaml(path)
-    yaml_content = YAML.dump({
-        secret: @secret,
-        turns: @turns,
-        guessed_chars: @guessed_chars,
-        board: @updated_board
-    })
-
-    File.write(path, yaml_content)
+  def to_yaml
+    puts 'Do you want to save your game? y or n'
+    answer = gets.chomp.to_s.downcase
+    if answer == 'y'
+      path = gets.chomp.to_s.downcase
+      yaml_content = YAML.dump({
+          secret: @secret,
+          turns: @turns,
+          guessed_chars: @guessed_chars,
+          board: @updated_board
+      })
+      File.write("#{path}.yaml", yaml_content)
+    else
+    end
   end
 
   def load_game(path)
@@ -93,10 +98,10 @@ class Hangman
   end
 
   def play_game
-      loop do
+    loop do
       user_guess
       update_board
-      to_yaml('output.yaml')
+      to_yaml
       load_game('output.yaml')
       if !@updated_board.include?('_')
         puts 'You saved the man! Congrats!'
@@ -111,3 +116,5 @@ end
 
 game = Hangman.new
 game.play_game
+
+
