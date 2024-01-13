@@ -1,11 +1,7 @@
 ---
-:secret: passing
-:turns: 9
+:secret: chamber
+:turns: 8
 :guessed_chars:
-- p
-- a
-- s
-- i
-- "n"
-- g
-:board: 'p a s s i n g '
+- c
+- k
+:board: 'c _ _ _ _ _ _ '

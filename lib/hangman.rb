@@ -59,7 +59,6 @@ class Hangman
   end
 
   def user_guess
-    puts "\n"
     @guess = gets.chomp.to_s.downcase
     while @guess.length > 1 || @guess.empty?
       puts 'Invalid Guess, Try Again'
@@ -75,7 +74,6 @@ class Hangman
       puts 'Your Guess Is Incorrect Try again'
       @turns -= 1
       hang_the_man
-      to_yaml
     end
   end
 
@@ -84,7 +82,9 @@ class Hangman
     @secret.each_char do |c|
       @updated_board += @guessed_chars.include?(c) ? c + ' ' : '_ '
     end
-    puts "Your guess is #{@updated_board.strip}"
+    puts "The secret is #{@updated_board.strip}"
+    guessed = @guessed_chars.to_s
+    puts "Your guessed letters are #{guessed}"
   end
 
   def hang_the_man
