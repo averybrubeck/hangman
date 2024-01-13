@@ -3,6 +3,18 @@ require 'yaml'
 # Hangman Game
 class Hangman
   def initialize
+    puts 'New Game or Load Game? n or l'
+    answer = gets.chomp.to_s.downcase
+    if answer == 'n'
+      new_game
+    elsif answer == 'l'
+      load_game('output.yaml')
+    else
+      puts 'invalid input, try again'
+    end
+  end
+
+  def new_game
     @secret = choose_secret.downcase
     @turns = 9
     @guess = []
@@ -13,24 +25,23 @@ class Hangman
   end
 
   def to_yaml
-    puts 'Do you want to save your game? y or n'
-    answer = gets.chomp.to_s.downcase
-    if answer == 'y'
-      path = gets.chomp.to_s.downcase
-      yaml_content = YAML.dump({
-          secret: @secret,
-          turns: @turns,
-          guessed_chars: @guessed_chars,
-          board: @updated_board
-      })
-      File.write("#{path}.yaml", yaml_content)
-    else
-    end
+    yaml_content = YAML.dump({
+        secret: @secret,
+        turns: @turns,
+        guessed_chars: @guessed_chars,
+        board: @updated_board
+    })
+    File.write('output.yaml', yaml_content)
   end
 
   def load_game(path)
     data = File.read(path)
-    YAML.load(data)
+    loaded_data = YAML.load(data)
+
+    @secret = loaded_data[:secret]
+    @turns = loaded_data[:turns]
+    @guessed_chars = loaded_data[:guessed_chars]
+    @updated_board = loaded_data[:board]
   end
 
   def choose_secret
@@ -59,10 +70,12 @@ class Hangman
 
     if @secret.include? @guess
       puts 'Your Guess Is Correct'
+      to_yaml
     else
       puts 'Your Guess Is Incorrect Try again'
       @turns -= 1
       hang_the_man
+      to_yaml
     end
   end
 

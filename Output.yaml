@@ -1,6 +1,11 @@
 ---
-:secret: choosing
+:secret: passing
 :turns: 9
 :guessed_chars:
-- c
-:board: 'c _ _ _ _ _ _ _ '
+- p
+- a
+- s
+- i
+- "n"
+- g
+:board: 'p a s s i n g '
